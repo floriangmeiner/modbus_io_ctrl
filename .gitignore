@@ -7,3 +7,5 @@ resources/ADAM-6250/Utilities/*
 resources/ADAM-6250/utility/*
 3BF098A245CCE409D47ACF8AD4988D9D.zip
 
+bin/*
+obj/*
