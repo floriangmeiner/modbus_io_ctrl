@@ -1,19 +1,21 @@
 TARGET = bin/modbus_monitor
 SRC = $(wildcard src/*.c)
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
+CFLAGS =-Iinclude -I/usr/local/include/modbus 
+LDFLAGS = -lmodbus -L/usr/local/lib
+
+
+default: $(TARGET)
 
 run: clean default
 	./$(TARGET)
 
-default: $(TARGET)
-
 clean: 
 	rm -f obj/*.o
 	rm -f bin/*
-	#rm -f *.db
 
 $(TARGET): $(OBJ)
-	gcc -o $@ $?
+	gcc -o $@ $? $(LDFLAGS)
 
 obj/%.o: src/%.c
-	gcc -c $< -o $@ -Iinclude
+	gcc -c $< -o $@ $(CFLAGS) -g
