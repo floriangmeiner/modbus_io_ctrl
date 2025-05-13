@@ -1,0 +1,7 @@
+break main
+break /home/maron2/Documents/repos/internal/learn_modbus/src/commands.c:58
+  commands
+    print/d last
+    print/d now
+    print/d elapsed_ms
+  end

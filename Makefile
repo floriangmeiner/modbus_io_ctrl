@@ -4,7 +4,7 @@ OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 CFLAGS =-Iinclude -I/usr/local/include/modbus
 LDFLAGS = -lmodbus -L/usr/local/lib
 
-DEBUG ?= 0
+DEBUG ?= 1
 ifeq ($(DEBUG), 1)
 	CFLAGS +=-g
 endif
