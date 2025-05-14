@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
   char *endptr;
   int ip_provided, port_provided = 0;
 
-  while ((opt = getopt(argc, argv, "hi:p:")) != -1)
+  while ((opt = getopt(argc, argv, "hi:p:s:")) != -1)
   {
     switch (opt)
     {
@@ -47,6 +47,23 @@ int main(int argc, char *argv[]) {
       port_provided = 1;
       debug("Port: %d", port);
       break;
+    case 's':
+      debug("Case 's' with argument %s", optarg);
+      debug("Case 's' pin number: %s", optarg );
+      
+      int set_state = 0; // default "off" or zero
+      for (int i = optind; i < argc && argv[i][0] != '-'; i++) {
+        printf(" %s\n", argv[i]);
+        if (atoi(argv[i]) ==  0 ){
+          set_state = 0;
+        } else{ 
+          set_state = 1;
+        }
+        debug("Case 's' with argument: set_state = %d", set_state);
+        optind++;
+      }
+      break;
+
     default: /* ? */
       show_usage();
       return -1;
@@ -58,6 +75,12 @@ int main(int argc, char *argv[]) {
     log_err("Error: Missing -i (IP address)\n");
     show_usage();
     return -1;
+  }
+  
+  if (!port_provided)
+  {
+    debug("Using default port %d", port);
+    printf("Using default port: %d\n", port);
   }
 
   mb = modbus_new_tcp(ipAddr, port);

@@ -16,10 +16,10 @@ run: clean default
 	./$(TARGET) -i 10.1.1.48 -p 502
 
 test: clean default
-	./$(TARGET) -i 10.1.1.48
-	./$(TARGET) -i 10.1.1.48 -h
-	./$(TARGET) -i 10.1.1.48 -p 502
-	./$(TARGET) -i 10.1.1.48 -p 501
+	# ./$(TARGET) -i 10.1.1.48
+	# ./$(TARGET) -i 10.1.1.48 -h
+	./$(TARGET) -i 10.1.1.48 -p 502 -s 5 1 0
+	# ./$(TARGET) -i 10.1.1.48 -p 501
 
 clean: 
 	rm -f obj/*.o

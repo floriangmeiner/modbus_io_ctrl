@@ -1,7 +1,11 @@
 break main
-break /home/maron2/Documents/repos/internal/learn_modbus/src/commands.c:58
+break /home/maron2/Documents/repos/internal/learn_modbus/src/main.c:50
   commands
-    print/d last
-    print/d now
-    print/d elapsed_ms
+    printf "optind = %d\n", optind
+  end
+break /home/maron2/Documents/repos/internal/learn_modbus/src/main.c:53
+  commands
+    printf "i = %d\n", i
+    printf "argc = %d\n", argc
+    printf "argv[%d][0] = %s", i, argv[i][0]
   end
