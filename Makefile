@@ -4,15 +4,22 @@ OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 CFLAGS =-Iinclude -I/usr/local/include/modbus
 LDFLAGS = -lmodbus -L/usr/local/lib
 
-DEBUG ?= 1
-ifeq ($(DEBUG), 1)
+NDEBUG ?= 0
+ifeq ($(NDEBUG), 1)
+	CFLAGS += -DNDEBUG 
+else 
 	CFLAGS +=-g
 endif
-
 default: $(TARGET)
 
 run: clean default
-	./$(TARGET)
+	./$(TARGET) -i 10.1.1.48 -p 502
+
+test: clean default
+	./$(TARGET) -i 10.1.1.48
+	./$(TARGET) -i 10.1.1.48 -h
+	./$(TARGET) -i 10.1.1.48 -p 502
+	./$(TARGET) -i 10.1.1.48 -p 501
 
 clean: 
 	rm -f obj/*.o

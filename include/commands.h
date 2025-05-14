@@ -11,4 +11,6 @@ typedef void (*dio_callback_t)(modbus_t *, uint8_t *, uint8_t);
 
 void toggle_every_Xms(int milliseconds, modbus_t *ctx, uint8_t *current_state, uint8_t pin );
 
+void show_usage(void);
+
 #endif

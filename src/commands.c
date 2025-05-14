@@ -1,6 +1,8 @@
 #include <modbus.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <stdio.h>
+
 #include "commands.h"
 
 
@@ -60,4 +62,12 @@ void toggle_every_Xms(int milliseconds, modbus_t *ctx, uint8_t *current_state, u
         toggle_digital_out(ctx, current_state, pin);
         last[pin] = now;
     }
+}
+
+void show_usage(void){
+  printf("Usage: modbus_monitor -i <ip address> -p <port number>\n"
+    "\t-h - this menu\n"
+    "\t-i <ip address> - (required) the modbus server IPv4 address\n" 
+    "\t-p <port number> - (default: 502) the modbusTCP port number\n"
+  );
 }
