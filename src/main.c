@@ -60,16 +60,16 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
-  mb = modbus_new_tcp("10.1.1.48", 502);
+  mb = modbus_new_tcp(ipAddr, port);
   if (mb == NULL)
   {
-    log_err("Unable to allocate context.");
+    log_err("Cannot allocated pointer to modbus_t structure.");
     return -1;
   }
   rc = modbus_connect(mb);
   if (rc < 0)
   {
-    log_err("Failed to connect.");
+    log_err("Failed to connect to Modbus Server at: %s:%d", ipAddr, port);
     return -1;
   }
   debug("Connection established.");
@@ -82,37 +82,23 @@ int main(int argc, char *argv[]) {
 
   struct termios oldt, newt;
   int ch;
-
   // Get current terminal settings
   tcgetattr(STDIN_FILENO, &oldt);
   newt = oldt;
   // Disable canonical mode and echo
   newt.c_lflag &= ~(ICANON | ECHO);
   tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
   // Set stdin to non-blocking
   int oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
   fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-
   printf("Press ESC to exit the loop.\n");
 
-  // gettimeofday(&last, NULL);
   while (1)
   {
     ch = getchar();
-    if (ch == 27)
-    { // 27 is ASCII for ESC
+    if (ch == 27){ // 27 is ASCII for ESC
       break;
     }
-    // gettimeofday(&now, NULL);
-    // long elapsed_ms = (now.tv_sec - last.tv_sec) * 1000L + (now.tv_usec - last.tv_usec) / 1000L;
-    // if (elapsed_ms >= 200) {
-    //     toggle_digital_out(mb, current_state, 3); // Call your function
-    //     last = now;
-    // }
-
-    // usleep(10000); // Sleep 10ms to avoid busy-waiting
-
     toggle_every_Xms(500, mb, current_state, 0);
     toggle_every_Xms(200, mb, current_state, 2);
 
