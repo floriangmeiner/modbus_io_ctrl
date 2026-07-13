@@ -54,6 +54,8 @@ int main(int argc, char *argv[]) {
       int set_state = 0; // default "off" or zero
       for (int i = optind; i < argc && argv[i][0] != '-'; i++) {
         printf(" %s\n", argv[i]);
+
+        /** THIS IS A MESS. PICK UP HERE AND CLEAN. */
         if (atoi(argv[i]) ==  0 ){
           set_state = 0;
         } else{ 
